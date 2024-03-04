@@ -1,4 +1,4 @@
-#!/usr/bin/env python2
+#!/usr/bin/env python3
 
 from __future__ import print_function
 import subprocess
@@ -28,7 +28,7 @@ def print_error(*args, **kwargs):
 def get_number_of_connected_peers():
     stdout = get_output(GLUSTER_POOL_LIST)
     if stdout:
-        connected_pool_list = [line for line in stdout.splitlines() if 'Connected' in line]
+        connected_pool_list = [line for line in stdout.splitlines() if b'Connected' in line]
         return len(connected_pool_list)
     return 0
 
@@ -36,7 +36,7 @@ def get_number_of_connected_peers():
 def count_online_bricks(volume):
     stdout = get_output('{} {} detail'.format(GLUSTER_VOLUME_STATUS, volume))
     if stdout:
-        online_statuses = [line.split()[-1] for line in stdout.splitlines() if 'Online' in line]
+        online_statuses = [line.split()[-1] for line in stdout.splitlines() if b'Online' in line]
         return online_statuses.count('Y')
     return 0
 
